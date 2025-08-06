@@ -7,3 +7,76 @@
  - cli interface
 
  - ai
+
+state = {
+    "player-count": 4,
+    "players": {
+        {
+    "cards": {
+        "row1": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row2": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row3": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row4": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+    }
+}
+        "player1": {
+    "cards": {
+        "row1": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row2": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row3": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+        "row4": {
+            "card1": None,
+            "card2": None,
+            "card3": None,
+        },
+    }
+}
+    },
+    "playerTurn": None,
+    "last-card": None,
+    "cards": {
+        "-2": 5,
+        "-1": 10,
+        "0": 15,  
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 10,
+        "5": 10,
+        "6": 10,
+        "7": 10,
+        "8": 10,
+        "9": 10,
+        "10": 10,
+        "11": 10,
+        "12": 10
+    },
+}
