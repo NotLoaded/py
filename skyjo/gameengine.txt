@@ -1,0 +1,9 @@
+ - store/read gamestate in .json
+ - gameloop
+ - game starting
+ - game ending
+ - cards
+
+ - cli interface
+
+ - ai
