@@ -4,12 +4,12 @@
         "player0": {
             "cards": {
                 "collumn1": {
-                    "card1": null,
-                    "card2": 9,
+                    "card1": 10,
+                    "card2": null,
                     "card3": null
                 },
                 "collumn2": {
-                    "card1": 0,
+                    "card1": 4,
                     "card2": null,
                     "card3": null
                 },
@@ -25,11 +25,11 @@
                 }
             },
             "startingCards": [
-                9,
-                12
+                10,
+                4
             ],
-            "startingSum": 21,
-            "totalSum": 9,
+            "startingSum": 14,
+            "totalSum": 14,
             "openCards": 2
         },
         "player1": {
@@ -45,42 +45,42 @@
                     "card3": null
                 },
                 "collumn3": {
-                    "card1": 9,
+                    "card1": 0,
                     "card2": null,
                     "card3": null
                 },
                 "collumn4": {
-                    "card1": 0,
+                    "card1": 3,
                     "card2": null,
                     "card3": null
                 }
             },
             "startingCards": [
-                9,
-                0
+                0,
+                3
             ],
-            "startingSum": 9,
-            "totalSum": 9,
+            "startingSum": 3,
+            "totalSum": 3,
             "openCards": 2
         }
     },
-    "playerTurn": "player1",
-    "last-card": 12,
+    "playerTurn": "player0",
+    "last-card": null,
     "cards": {
         "-2": 5,
         "-1": 10,
-        "0": 13,
+        "0": 14,
         "1": 10,
         "2": 10,
-        "3": 10,
-        "4": 10,
+        "3": 9,
+        "4": 9,
         "5": 10,
         "6": 10,
         "7": 10,
         "8": 10,
-        "9": 8,
-        "10": 10,
+        "9": 10,
+        "10": 9,
         "11": 10,
-        "12": 9
+        "12": 10
     }
 }

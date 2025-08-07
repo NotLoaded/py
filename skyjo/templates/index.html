@@ -118,42 +118,43 @@
         function renderPlayers(players) {
             const container = document.getElementById('players-container');
             container.innerHTML = '';
-            
+                
             Object.entries(players).forEach(([playerId, playerData]) => {
                 const playerDiv = document.createElement('div');
                 playerDiv.className = 'player-section';
-                
+
                 const title = document.createElement('div');
                 title.className = 'player-title';
                 title.textContent = playerId;
                 playerDiv.appendChild(title);
-                
+
                 // Create one grid for all cards
                 const gridDiv = document.createElement('div');
                 gridDiv.className = 'player-grid';
-                
+
                 // Get the columns in order
                 const columns = ['collumn1', 'collumn2', 'collumn3', 'collumn4'];
                 const rows = ['card1', 'card2', 'card3'];
-                
-                // Create cards in the correct order (column by column, top to bottom)
-                columns.forEach(column => {
-                    rows.forEach(row => {
+
+                // Create cards in the correct order (row by row, left to right)
+                // This matches the CSS grid layout
+                rows.forEach(row => {
+                    columns.forEach(column => {
                         const cardValue = playerData.cards[column][row];
                         const cardDiv = document.createElement('div');
                         cardDiv.className = 'card-slot';
-                        
+
                         if (cardValue !== null) {
                             const valueSpan = document.createElement('span');
                             valueSpan.className = 'card-value';
                             valueSpan.textContent = cardValue;
                             cardDiv.appendChild(valueSpan);
                         }
-                        
+
                         gridDiv.appendChild(cardDiv);
                     });
                 });
-                
+
                 playerDiv.appendChild(gridDiv);
                 container.appendChild(playerDiv);
             });
