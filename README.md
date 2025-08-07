@@ -1,4 +1,9 @@
-# py
+# README PYTHON TESTING
 
-Python testing project for ai and game automation/scripting.
+## Projects:
 
+- skyjo digital replicate
+
+## Future plans:
+
+- creating an ai bot to play the game
