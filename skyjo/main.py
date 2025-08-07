@@ -48,7 +48,10 @@ player_template = {
             "card2": None,
             "card3": None,
         },
-    }
+    },
+    "startingCards": [None, None],
+    "startingSum": 0,  # Sum of the two starting cards
+    "totalSum": 0,     # Total sum of all cards
 }
 
 # Initialize the game state
@@ -83,13 +86,24 @@ def start_game():
         json.dump(state, f, indent=4)
     
 def starting_cards():
+    highset_sum = None
+    highest_player = None
     # Players will pick which starting cards to reveal
     for player in state["players"]:
+    
         for x in range(2):
             c, r = map(int, input(f"{player}, pick starting card {x} (collumn, card): ").split(","))
             print(f"Picking card at row {c}, card {r} for {player}")
+            state["players"][player]["cards"][f"collumn{c}"][f"card{r}"] = choosen_card = new_card()
+            state["players"][player]["startingCards"][x] = choosen_card
+            if x == 1:
+                state["players"][player]["startingSum"] = sum(state["players"][player]["startingCards"])
+        if highset_sum is None or state["players"][player]["startingSum"] > highset_sum:
+            highset_sum = state["players"][player]["startingSum"]
+            highest_player = player
+    state["playerTurn"] = highest_player
+        
             
-            state["players"][player]["cards"][f"collumn{c}"][f"card{r}"] = new_card()
             
 def new_card():
     if not state["cards"]:
@@ -100,7 +114,6 @@ def new_card():
     print(f"Drawn card: {chosen_card}")
     # Modify the original dictionary in-place
     state["cards"][chosen_card] -= 1
-    return chosen_card
-    
-    
+    return int(chosen_card)
+
 start_game()
