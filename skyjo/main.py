@@ -2,6 +2,7 @@
 
 import json
 import random
+import copy
 
 cards = {
     "-2": 5,
@@ -14,7 +15,7 @@ cards = {
     "5": 10,
     "6": 10,
     "7": 10,
-    "8": 10,
+    "8": 10, 
     "9": 10,
     "10": 10,
     "11": 10,
@@ -27,22 +28,22 @@ cards = {
 # Unturned cards are represented as None
 player_template = {
     "cards": {
-        "row1": {
+        "collumn1": {
             "card1": None,
             "card2": None,
             "card3": None,
         },
-        "row2": {
+        "collumn2": {
             "card1": None,
             "card2": None,
             "card3": None,
         },
-        "row3": {
+        "collumn3": {
             "card1": None,
             "card2": None,
             "card3": None,
         },
-        "row4": {
+        "collumn4": {
             "card1": None,
             "card2": None,
             "card3": None,
@@ -70,7 +71,7 @@ def init_game_data():
     
     # Create player entries in the state dictionary
     for player in range(0, state["player-count"]):
-        state["players"][f"player{player}"] = player_template.copy()
+        state["players"][f"player{player}"] = copy.deepcopy(player_template)
 
 def start_game():
     # Initialize the game data
@@ -78,12 +79,17 @@ def start_game():
     
     starting_cards()
     
+    with open('state.json', 'w') as f:
+        json.dump(state, f, indent=4)
+    
 def starting_cards():
     # Players will pick which starting cards to reveal
     for player in state["players"]:
         for x in range(2):
-            r, c = map(int, input(f"{player}, pick starting card {x} (row, card): ").split(","))
-            state["players"][player]["cards"][f"row{r}"][f"card{c}"] = new_card()
+            c, r = map(int, input(f"{player}, pick starting card {x} (collumn, card): ").split(","))
+            print(f"Picking card at row {c}, card {r} for {player}")
+            
+            state["players"][player]["cards"][f"collumn{c}"][f"card{r}"] = new_card()
             
 def new_card():
     if not state["cards"]:
@@ -91,11 +97,10 @@ def new_card():
     names = list(state["cards"].keys())
     weights = list(state["cards"].values())
     chosen_card = random.choices(names, weights=weights, k=1)[0]
-
+    print(f"Drawn card: {chosen_card}")
     # Modify the original dictionary in-place
     state["cards"][chosen_card] -= 1
+    return chosen_card
     
-    with open('state.json', 'w') as f:
-        json.dump(state, f, indent=4)
     
 start_game()

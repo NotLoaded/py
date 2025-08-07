@@ -35,7 +35,8 @@
         }
         .player-grid {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
+            grid-template-columns: repeat(4, 100px); /* Changed to 4 columns */
+            grid-template-rows: repeat(3, 140px); /* Added explicit rows */
             gap: 10px;
             margin-bottom: 30px;
         }
@@ -127,11 +128,18 @@
                 title.textContent = playerId;
                 playerDiv.appendChild(title);
                 
-                Object.entries(playerData.cards).forEach(([rowId, rowData]) => {
-                    const rowDiv = document.createElement('div');
-                    rowDiv.className = 'player-grid';
-                    
-                    Object.values(rowData).forEach(cardValue => {
+                // Create one grid for all cards
+                const gridDiv = document.createElement('div');
+                gridDiv.className = 'player-grid';
+                
+                // Get the columns in order
+                const columns = ['collumn1', 'collumn2', 'collumn3', 'collumn4'];
+                const rows = ['card1', 'card2', 'card3'];
+                
+                // Create cards in the correct order (column by column, top to bottom)
+                columns.forEach(column => {
+                    rows.forEach(row => {
+                        const cardValue = playerData.cards[column][row];
                         const cardDiv = document.createElement('div');
                         cardDiv.className = 'card-slot';
                         
@@ -142,12 +150,11 @@
                             cardDiv.appendChild(valueSpan);
                         }
                         
-                        rowDiv.appendChild(cardDiv);
+                        gridDiv.appendChild(cardDiv);
                     });
-                    
-                    playerDiv.appendChild(rowDiv);
                 });
                 
+                playerDiv.appendChild(gridDiv);
                 container.appendChild(playerDiv);
             });
         }

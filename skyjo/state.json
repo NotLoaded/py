@@ -3,22 +3,22 @@
     "players": {
         "player0": {
             "cards": {
-                "row1": {
+                "collumn1": {
+                    "card1": "0",
+                    "card2": null,
+                    "card3": null
+                },
+                "collumn2": {
+                    "card1": "4",
+                    "card2": null,
+                    "card3": null
+                },
+                "collumn3": {
                     "card1": null,
                     "card2": null,
                     "card3": null
                 },
-                "row2": {
-                    "card1": null,
-                    "card2": null,
-                    "card3": null
-                },
-                "row3": {
-                    "card1": null,
-                    "card2": null,
-                    "card3": null
-                },
-                "row4": {
+                "collumn4": {
                     "card1": null,
                     "card2": null,
                     "card3": null
@@ -27,23 +27,23 @@
         },
         "player1": {
             "cards": {
-                "row1": {
+                "collumn1": {
                     "card1": null,
                     "card2": null,
                     "card3": null
                 },
-                "row2": {
+                "collumn2": {
                     "card1": null,
                     "card2": null,
                     "card3": null
                 },
-                "row3": {
-                    "card1": null,
+                "collumn3": {
+                    "card1": "3",
                     "card2": null,
                     "card3": null
                 },
-                "row4": {
-                    "card1": null,
+                "collumn4": {
+                    "card1": "4",
                     "card2": null,
                     "card3": null
                 }
@@ -58,15 +58,15 @@
         "0": 14,
         "1": 10,
         "2": 10,
-        "3": 10,
-        "4": 10,
-        "5": 9,
+        "3": 9,
+        "4": 8,
+        "5": 10,
         "6": 10,
         "7": 10,
         "8": 10,
-        "9": 9,
+        "9": 10,
         "10": 10,
         "11": 10,
-        "12": 9
+        "12": 10
     }
 }
