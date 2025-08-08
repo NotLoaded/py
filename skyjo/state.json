@@ -4,83 +4,91 @@
         "player0": {
             "cards": {
                 "collumn1": {
-                    "card1": null,
-                    "card2": 9,
-                    "card3": null
+                    "removed": false,
+                    "card1": 1,
+                    "card2": 11,
+                    "card3": 0
                 },
                 "collumn2": {
-                    "card1": 0,
-                    "card2": null,
+                    "removed": false,
+                    "card1": 7,
+                    "card2": 11,
                     "card3": null
                 },
                 "collumn3": {
+                    "removed": true,
                     "card1": null,
                     "card2": null,
                     "card3": null
                 },
                 "collumn4": {
+                    "removed": true,
                     "card1": null,
                     "card2": null,
                     "card3": null
                 }
             },
             "startingCards": [
-                9,
-                12
+                1,
+                7
             ],
-            "startingSum": 21,
-            "totalSum": 9,
-            "openCards": 2
+            "startingSum": 8,
+            "totalSum": 30,
+            "openCards": 5
         },
         "player1": {
             "cards": {
                 "collumn1": {
-                    "card1": null,
-                    "card2": null,
-                    "card3": null
+                    "removed": false,
+                    "card1": 12,
+                    "card2": 2,
+                    "card3": 3
                 },
                 "collumn2": {
+                    "removed": true,
                     "card1": null,
                     "card2": null,
                     "card3": null
                 },
                 "collumn3": {
-                    "card1": 9,
+                    "removed": true,
+                    "card1": 7,
                     "card2": null,
                     "card3": null
                 },
                 "collumn4": {
-                    "card1": 0,
+                    "removed": true,
+                    "card1": null,
                     "card2": null,
                     "card3": null
                 }
             },
             "startingCards": [
-                9,
-                0
+                2,
+                11
             ],
-            "startingSum": 9,
-            "totalSum": 9,
-            "openCards": 2
+            "startingSum": 13,
+            "totalSum": 51,
+            "openCards": 7
         }
     },
-    "playerTurn": "player1",
-    "last-card": 12,
+    "playerTurn": "player0",
+    "last-card": 9,
     "cards": {
-        "-2": 5,
+        "-2": 4,
         "-1": 10,
-        "0": 13,
-        "1": 10,
-        "2": 10,
-        "3": 10,
-        "4": 10,
-        "5": 10,
-        "6": 10,
-        "7": 10,
+        "0": 14,
+        "1": 8,
+        "2": 9,
+        "3": 8,
+        "4": 8,
+        "5": 9,
+        "6": 9,
+        "7": 8,
         "8": 10,
-        "9": 8,
+        "9": 6,
         "10": 10,
-        "11": 10,
+        "11": 7,
         "12": 9
     }
 }

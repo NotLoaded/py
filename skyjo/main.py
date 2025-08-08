@@ -29,21 +29,25 @@ cards = {
 player_template = {
     "cards": {
         "collumn1": {
+            "removed": False,  # Indicates if the column is removed
             "card1": None,
             "card2": None,
             "card3": None,
         },
         "collumn2": {
+            "removed": False,  # Indicates if the column is removed
             "card1": None,
             "card2": None,
             "card3": None,
         },
         "collumn3": {
+            "removed": False,  # Indicates if the column is removed
             "card1": None,
             "card2": None,
             "card3": None,
         },
         "collumn4": {
+            "removed": False,  # Indicates if the column is removed
             "card1": None,
             "card2": None,
             "card3": None,
@@ -63,6 +67,7 @@ state = {
     "players": {},
     "playerTurn": None,
     "last-card": None,
+    "last-round-player": None,  # Indicates if it's the last round
     "cards": cards,
 }
 
@@ -119,8 +124,36 @@ def new_card():
     state["cards"][chosen_card] -= 1
     return int(chosen_card)
 
+def game_ending():
+    # Check all collumns of every player for unopened cards
+    # Generate new cards for all unopened cards
+    for player in state["players"]:
+        for collumn in state["players"][player]["cards"].values():
+            if not collumn["removed"]:
+                for card_key in ["card1", "card2", "card3"]:
+                    if collumn[card_key] is None:
+                        collumn[card_key] = new_card()
+                        state["players"][player]["openCards"] += 1
+                        state["players"][player]["totalSum"] += collumn[card_key]
+    # Calculate the final scores and determine winner by lowest score
+    scores = {player: state["players"][player]["totalSum"] for player in state["players"]}
+    winner = min(scores, key=scores.get)
+    # Print out the winner and all scores
+    print("Final scores:")
+    print(f"Game over! The winner is {winner} with a score of {scores[winner]}.")
+    for player, score in scores.items():
+        print(f"{player}: {score}")
+    # Save the final state to the file
+    with open('state.json', 'w') as f:
+        json.dump(state, f, indent=4)
+
 def game_loop():
     # Main game loop
+    
+    if state["last-round-player"] == current_player:
+        game_ending()
+        return
+        
     while True:
         current_player = state["playerTurn"]
         print(f"It's {current_player}'s turn.")
@@ -156,7 +189,7 @@ def game_loop():
                     state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"] = new_card()
                     state["players"][current_player]["openCards"] += 1
                     state["players"][current_player]["totalSum"] += state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"]
-                    print(f"{current_player} revealed the card in column {c}, card {r}: {state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"]}")
+                    print(f"{current_player} revealed the card in column {c}, card {r}: {state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"]}")
                 else:
                     print(f"Column {c}, card {r} is already revealed. Please choose another position.")
                     continue
@@ -171,18 +204,34 @@ def game_loop():
                 continue
             elif state["last-card"] is not None:
                 c, r = map(int, input(f"{current_player}, choose column and card position to replace with the last card (collumn, card): ").split(","))
-                if state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"] is None:
-                    state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"] = state["last-card"]
+                if state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"] is None:
+                    state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"] = state["last-card"]
                     state["players"][current_player]["openCards"] += 1
                     state["players"][current_player]["totalSum"] += state["last-card"]
                     state["last-card"] = new_card()
                     print(f"It replaced the unturned card {state['last-card']} in column {c}, card {r}, which is now discarded.")
-                elif state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"] is not None:
-                    replaced_card = state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"]
+                elif state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"] is not None:
+                    replaced_card = state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"]
                     state["players"][current_player]["totalSum"] -= replaced_card
-                    state["players"][current_player]["cards"][f"collumn{c}"]["card{r}"] = state["last-card"]
+                    state["players"][current_player]["cards"][f"collumn{c}"][f"card{r}"] = state["last-card"]
                     state["players"][current_player]["totalSum"] += state["last-card"]
                     print(f"{current_player} replaced the card in column {c}, card {r}: {replaced_card} with the last card: {state['last-card']}.")
+                    
+        for collumn in state["players"][current_player]["cards"].values():
+            if collumn["card1"] == collumn["card2"] == collumn["card3"] != None and not collumn["removed"]:
+                print(f"{current_player} has a complete column with cards {collumn['card1']}, {collumn['card2']}, {collumn['card3']}.")
+                # remove the column from the player's cards
+                collumn["removed"] = True
+                collumn["card1"] = None
+                collumn["card2"] = None
+                collumn["card3"] = None
+                
+        if state["players"][current_player]["openCards"] == 12:
+            print(f"{current_player} has revealed all cards. One last round for all players, except himself.")
+            state["last-round-player"] = current_player
+            
+        
+        
         
         # Update player turn logic (for simplicity, just rotate through players)
         next_player_index = (int(current_player[-1]) + 1) % state["player-count"]

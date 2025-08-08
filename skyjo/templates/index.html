@@ -99,6 +99,17 @@
     </div>
 
     <script>
+        // Add this function at the beginning of the script section
+        function refreshGameState() {
+            fetch('/api/state')
+                .then(response => response.json())
+                .then(data => {
+                    renderPlayers(data.players);
+                    renderCards(data.cards);
+                })
+                .catch(error => console.error('Error loading data:', error));
+        }
+
         function showTab(tabId) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -179,14 +190,11 @@
             });
         }
         
-        // Fetch data from API
-        fetch('/api/state')
-            .then(response => response.json())
-            .then(data => {
-                renderPlayers(data.players);
-                renderCards(data.cards);
-            })
-            .catch(error => console.error('Error loading data:', error));
+        // Initial load
+        refreshGameState();
+
+        // Set up automatic refresh every 1000ms (1 second)
+        setInterval(refreshGameState, 1000);
     </script>
 </body>
 </html>
